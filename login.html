@@ -1,40 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Geolocation Form</title>
+  <title>Local Storage Example</title>
   <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
+    function saveData() {
+      var data = document.getElementById("inputData").value;
+      localStorage.setItem("myData", data);
+      alert("Data saved to local storage.");
     }
 
-    function showPosition(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      document.getElementById("latitude").value = latitude;
-      document.getElementById("longitude").value = longitude;
+    function retrieveData() {
+      var data = localStorage.getItem("myData");
+      if (data) {
+        document.getElementById("outputData").textContent = data;
+      } else {
+        document.getElementById("outputData").textContent = "No data found in local storage.";
+      }
     }
   </script>
 </head>
 <body>
-  <h2>Geolocation Form</h2>
-  <form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br><br>
-
-    <label for="latitude">Latitude:</label>
-    <input type="text" id="latitude" name="latitude" readonly><br><br>
-
-    <label for="longitude">Longitude:</label>
-    <input type="text" id="longitude" name="longitude" readonly><br><br>
-
-    <button type="button" onload="getLocation()">Get Current Location</button>
-    <br><br>
-
-    <input type="submit" value="Submit">
-  </form>
+  <h2>Local Storage Example</h2>
+  <input type="text" id="inputData" placeholder="Enter data">
+  <button onclick="saveData()">Save Data</button>
+  <br><br>
+  <button onclick="retrieveData()">Retrieve Data</button>
+  <p id="outputData"></p>
 </body>
 </html>
